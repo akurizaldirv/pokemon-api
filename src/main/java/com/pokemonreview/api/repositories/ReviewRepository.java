@@ -1,6 +1,6 @@
 package com.pokemonreview.api.repositories;
 
-import com.pokemonreview.api.models.Review;
+import com.pokemonreview.api.entities.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.pokemonreview.api.models;
+package com.pokemonreview.api.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,5 @@
 package com.pokemonreview.api.dto;
 
-import com.pokemonreview.api.models.Pokemon;
 import lombok.Data;
 
 @Data

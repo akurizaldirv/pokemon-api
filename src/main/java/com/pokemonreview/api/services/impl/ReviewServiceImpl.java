@@ -2,7 +2,7 @@ package com.pokemonreview.api.services.impl;
 
 import com.pokemonreview.api.dto.*;
 import com.pokemonreview.api.exceptions.*;
-import com.pokemonreview.api.models.*;
+import com.pokemonreview.api.entities.*;
 import com.pokemonreview.api.repositories.*;
 import com.pokemonreview.api.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-    private PokemonRepository pokemonRepository;
-    private ReviewRepository reviewRepository;
+    private final PokemonRepository pokemonRepository;
+    private final ReviewRepository reviewRepository;
 
     @Autowired
     public ReviewServiceImpl(PokemonRepository pokemonRepository, ReviewRepository reviewRepository) {
@@ -61,7 +61,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ReviewDto getById(Integer id, Integer pokemonId) {
-        Pokemon pokemon = pokemonRepository.findById(pokemonId).orElseThrow(() -> new PokemonNotFoundException("Cannout find Pokemon with this Id"));
+        Pokemon pokemon = pokemonRepository.findById(pokemonId).orElseThrow(() -> new PokemonNotFoundException("Cannot find Pokemon with this Id"));
         Review review = reviewRepository.findById(id).orElseThrow(() -> new ReviewNotFoundException("Cannot find Review with this Id"));
 
         if (pokemon.getId() != review.getPokemon().getId()) {
@@ -117,7 +117,6 @@ public class ReviewServiceImpl implements ReviewService {
         reviewDto.setId(review.getId());
         reviewDto.setContent(review.getContent());
         reviewDto.setStars(review.getStars());
-//        reviewDto.setPokemon(review.getPokemon());
         reviewDto.setTitle(review.getTitle());
 
         return reviewDto;
@@ -128,7 +127,6 @@ public class ReviewServiceImpl implements ReviewService {
         review.setTitle(reviewDto.getTitle());
         review.setStars(reviewDto.getStars());
         review.setContent(reviewDto.getContent());
-//        review.setPokemon(reviewDto.getPokemon());
 
         return review;
     }

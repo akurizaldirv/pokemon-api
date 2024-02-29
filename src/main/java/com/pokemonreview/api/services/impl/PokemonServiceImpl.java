@@ -3,7 +3,7 @@ package com.pokemonreview.api.services.impl;
 import com.pokemonreview.api.dto.PokemonDto;
 import com.pokemonreview.api.dto.PokemonResponse;
 import com.pokemonreview.api.exceptions.PokemonNotFoundException;
-import com.pokemonreview.api.models.Pokemon;
+import com.pokemonreview.api.entities.Pokemon;
 import com.pokemonreview.api.repositories.PokemonRepository;
 import com.pokemonreview.api.services.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class PokemonServiceImpl implements PokemonService {
 
-    private PokemonRepository pokemonRepository;
+    private final PokemonRepository pokemonRepository;
 
     @Autowired
     public PokemonServiceImpl(PokemonRepository pokemonRepository) {
@@ -60,13 +60,13 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public PokemonDto getById(Integer id) {
-        Pokemon pokemon = pokemonRepository.findById(id).orElseThrow(() -> new PokemonNotFoundException("Pokemon could not be Found"));
+        Pokemon pokemon = pokemonRepository.findById(id).orElseThrow(() -> new PokemonNotFoundException("Pokemon Could not be Found"));
         return mapToDto(pokemon);
     }
 
     @Override
     public PokemonDto update(PokemonDto pokemonDto, Integer id) {
-        Pokemon pokemon = pokemonRepository.findById(id).orElseThrow(() -> new PokemonNotFoundException("Pokemon could not be Updated"));
+        Pokemon pokemon = pokemonRepository.findById(id).orElseThrow(() -> new PokemonNotFoundException("Pokemon Could not be Updated"));
 
         pokemon.setType(pokemonDto.getType());
         pokemon.setName(pokemonDto.getName());
@@ -78,7 +78,7 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public void delete(Integer id) {
-        Pokemon pokemon = pokemonRepository.findById(id).orElseThrow(() -> new PokemonNotFoundException("Pokemon could not be Deleted"));
+        Pokemon pokemon = pokemonRepository.findById(id).orElseThrow(() -> new PokemonNotFoundException("Pokemon Could not be Deleted"));
         pokemonRepository.delete(pokemon);
     }
 

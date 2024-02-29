@@ -8,16 +8,14 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtService implements com.pokemonreview.api.services.JwtService {
+public class JwtServiceImpl implements com.pokemonreview.api.services.JwtService {
     private static final String SECRET = "40cccd7e1f1145d1012ad4c42a09c1645b5dc8e461ce652a72b2c4ef4975034f";
     @Override
     public String extractUsername(String token) {
