@@ -42,4 +42,14 @@ public class GlobalErrorHandler {
 
         return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    public ResponseEntity<ErrorObject> handleUserNotFound(UnauthorizedAccessException ex, WebRequest req) {
+        ErrorObject errorObject = new ErrorObject();
+
+        errorObject.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+        errorObject.setMessage(ex.getMessage());
+        errorObject.setTimestamp(new Date());
+
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.UNAUTHORIZED);
+    }
 }

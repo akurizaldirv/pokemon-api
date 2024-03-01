@@ -1,5 +1,7 @@
 package com.pokemonreview.api.security;
 
+import com.pokemonreview.api.exceptions.UnauthorizedAccessException;
+import com.pokemonreview.api.services.BlacklistService;
 import com.pokemonreview.api.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,6 +24,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final BlacklistService blacklistService;
 
     @Override
     protected void doFilterInternal(
@@ -37,6 +40,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         jwt = authHeader.substring(7);
+
+        if (jwt != null && blacklistService.isBlacklisted(jwt)) {
+            throw new UnauthorizedAccessException("You are Logged Out, Please Re-Login!");
+        }
+
         userEmail = jwtService.extractUsername(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
