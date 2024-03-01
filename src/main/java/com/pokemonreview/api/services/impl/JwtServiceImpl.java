@@ -62,7 +62,7 @@ public class JwtServiceImpl implements com.pokemonreview.api.services.JwtService
         return Jwts.parser()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
